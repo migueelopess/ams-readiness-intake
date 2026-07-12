@@ -139,12 +139,18 @@ A user story is done when:
 3. Each acceptance criterion maps to at least one test case or BDD scenario.
 4. It is small enough to be delivered and tested independently (split if not).
 
-### DoD — Final Delivery
-The final delivery is done when:
-1. All 14 deliverables exist in the repository, each with its own dedicated commit.
-2. Commits are distributed across at least 4 different days with clear messages.
-3. The traceability matrix is coherent end-to-end (OBJ → … → automated test) and consistent with all artefacts.
-4. The app runs following the README, using SQLite persistence and the defined data model.
-5. The automated database-backed tests are executable, reproducible and pass; evidence is recorded in `evidence/test_results.md`.
-6. The change request has been processed after the traceability baseline commit, with all impacted artefacts updated.
-7. The README, AI usage review and requirements quality review are complete.
+### DoD — Final Delivery (AMS Readiness Intake increment)
+The delivery of the AMS Readiness Intake increment is done when:
+1. All in-scope requirements (REQ-001…REQ-010, plus any change-request requirements) are implemented or specified and appear in the traceability matrix.
+2. Every requirement's acceptance criteria are covered by at least one test case or BDD scenario.
+3. The data architecture (`Assessment`, `Evidence`, `UserRole`) is implemented in SQLite and matches the application behaviour.
+4. The evidence-validation slice runs and demonstrates the mandatory business rules: mandatory evidence fields, the 90-day freshness rule, and role-based submission.
+5. For the demonstration data, the missing critical information and the readiness status/score are shown correctly.
+6. The automated database-backed tests are reproducible and pass, with execution evidence recorded in `evidence/test_results.md`.
+7. Documentation (README, data architecture, tests) is consistent with the delivered behaviour, and there are no known critical defects.
+8. The change request has been assessed and its impact incorporated (requirements, tests, data and traceability updated).
+
+> Note: the *academic submission gate* — the 14 deliverables, each with a dedicated commit,
+> distributed across at least 4 days, in the required repository structure — is a **process**
+> requirement governed by the commit rules and the README, and is deliberately kept **separate**
+> from this product-level Definition of Done to avoid mixing levels.
