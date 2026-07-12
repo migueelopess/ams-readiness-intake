@@ -59,6 +59,17 @@ so that I can prioritize actions for the first 90 days.
   - AC-1: The result shows a status (`ready` / `not ready`) and the missing-information list.
   - AC-2: The readiness score is deterministic for the same input.
 
+## US-006 — Raise an RFC to Contributors  *(added by CR-01)*
+As a **Transition Lead**,
+I want to raise a structured RFC (Request for Comment) to Contributors about an intake,
+so that missing transition knowledge is documented and can feed future AMS FAQs.
+
+- Linked requirement(s): REQ-011, REQ-012, REQ-008
+- Acceptance Criteria:
+  - AC-1: A Transition Lead can create an RFC with a title and request/content linked to an intake; it is stored with status `open`.
+  - AC-2: A Contributor can respond to an open RFC; a response can be marked as reusable knowledge.
+  - AC-3: A user who is not a Transition Lead cannot raise an RFC (the attempt is denied).
+
 ---
 
 ## Story split

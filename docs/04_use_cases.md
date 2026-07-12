@@ -31,16 +31,20 @@ rectangle "AMS Readiness Intake" {
   usecase "UC-04 Review missing critical information" as UC4
   usecase "UC-05 Submit final assessment" as UC5
   usecase "UC-06 Review readiness result" as UC6
+  usecase "UC-07 Raise / answer RFC" as UC7
 
   UC2 .> UC3 : include
   UC5 .> UC4 : include
+  UC7 .> UC4 : extend
 }
 
 TL --> UC1
 TL --> UC2
 TL --> UC5
 TL --> UC6
+TL --> UC7
 C  --> UC2
+C  --> UC7
 SO --> UC3
 AM --> UC4
 AM --> UC6
@@ -59,6 +63,8 @@ System boundary: AMS Readiness Intake
   UC-05 Submit final assessment ........ Transition Lead
         └─ include → UC-04 Review missing critical information
   UC-06 Review readiness result ........ AMS Manager, Transition Lead
+  UC-07 Raise / answer RFC ............. Transition Lead (raises), Contributor (answers)
+        └─ extend → UC-04 (an RFC may extend the review of missing critical information)
 ```
 
 ### Use case ↔ requirement overview
@@ -71,6 +77,7 @@ System boundary: AMS Readiness Intake
 | UC-04 Review missing critical information | REQ-003 |
 | UC-05 Submit final assessment | REQ-005, REQ-008 (include UC-04); baseline REQ-004 |
 | UC-06 Review readiness result | REQ-006, REQ-007 |
+| UC-07 Raise / answer RFC *(CR-01)* | REQ-011, REQ-012, REQ-008 |
 
 ---
 
@@ -131,3 +138,33 @@ System boundary: AMS Readiness Intake
 ### Postconditions
 - Success: the evidence item is saved and its freshness status is computed.
 - Failure: nothing is saved; a validation message explains what is missing.
+
+---
+
+## UC-07 — Raise / answer RFC  *(detailed — added by CR-01)*
+
+- Use Case ID: UC-07
+- Title: Raise / answer RFC (Request for Comment)
+- Primary actor: Transition Lead (raises); Contributor (answers)
+- Goal: Capture missing transition knowledge through a structured RFC that can feed future AMS documentation/FAQ.
+- Preconditions: An assessment/intake exists; the user is authenticated with a role.
+- Trigger: The Transition Lead needs further information about an intake and raises an RFC.
+- Related requirements: REQ-011, REQ-012, REQ-008 (role), REQ-003 (missing info).
+
+### Main flow
+1. The Transition Lead selects an intake/assessment and chooses to raise an RFC.
+2. The system verifies the user's role is **Transition Lead** (REQ-008).
+3. The Transition Lead enters a title and the request/content; optionally references a missing-critical-information item (REQ-003).
+4. The system persists the RFC with status `open` (REQ-011).
+5. A Contributor adds a response to the open RFC; the response can be marked as reusable knowledge (REQ-012).
+6. The Transition Lead reviews the responses and moves the RFC to status `answered`.
+
+### Alternative flows
+- AF-1 (knowledge promotion): at step 5, a response marked as reusable knowledge is flagged for promotion to transition documentation / future FAQ.
+
+### Exceptions
+- EX-1 (unauthorized raise): at step 2, if the role is not Transition Lead, the RFC is **not created** and the attempt is denied (REQ-008).
+
+### Postconditions
+- Success: an RFC exists (`open` → `answered`) with at least one response; reusable knowledge is captured.
+- Failure: no RFC is created; the reason (unauthorized) is shown.

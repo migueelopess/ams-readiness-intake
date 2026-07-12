@@ -24,6 +24,13 @@ This deliverable links the artefacts end to end:
 | OBJ-03 | CSF-03 | REQ-008 Role-based authorization | UC-05 | US-003a | REQ-008 AC-1, AC-2 | TC-008 / Scenario: Unauthorized user | UserRole | AT-004 |
 | OBJ-01 | CSF-01 | REQ-009 Guided evidence entry | UC-02 | US-001 | REQ-009 AC-1, AC-2 | TC-003 | Evidence | AT-002 |
 | OBJ-02 | CSF-02 | REQ-010 Mandatory evidence fields | UC-02 | US-001 | REQ-010 AC-1, AC-2 | TC-001, TC-003 | Evidence | AT-002 |
+| OBJ-02 | CSF-02 | REQ-011 Raise an RFC *(CR-01)* | UC-07 | US-006 | REQ-011 AC-1, AC-2 | TC-009, TC-010 / Scenario: RFC — only the Transition Lead can raise an RFC | RFC | AT-005 |
+| OBJ-02 | CSF-02 | REQ-012 Respond to an RFC *(CR-01)* | UC-07 | US-006 | REQ-012 AC-1, AC-2 | TC-009 | RFC, RFCResponse | AT-005 |
+
+> **Post-change-request update.** The rows marked *(CR-01)* (REQ-011, REQ-012 — the RFC tool) were
+> added **after** the baseline commit, as part of processing the change request (`docs/09`). The
+> `RFC` / `RFCResponse` entities are defined in `docs/10_data_architecture.md` and the automated
+> test `AT-005` in `docs/12_automated_tests.md`.
 
 ## Traceability chain (explained)
 

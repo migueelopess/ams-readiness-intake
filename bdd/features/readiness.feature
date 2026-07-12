@@ -26,3 +26,11 @@ Feature: AMS readiness assessment
     When the Contributor tries to submit the assessment
     Then the submission is denied
     And the assessment remains in draft status
+
+  # Added by change request CR-01 (RFC tool)
+  Scenario: RFC — only the Transition Lead can raise an RFC
+    Given a Contributor is authenticated
+    When the Contributor tries to raise an RFC on the intake
+    Then the request is denied
+    And no RFC is created
+

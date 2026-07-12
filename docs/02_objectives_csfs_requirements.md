@@ -49,16 +49,17 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
   - AC-2: If any of `source`, `owner` or `freshness_date` is missing, the item is rejected with a validation message.
 - Validation method: Test / Demo
 
-### REQ-003 — Identify missing critical information
+### REQ-003 — Identify missing critical information  *(updated by CR-01)*
 - Type: Functional
 - Stakeholder: Transition Lead, AMS Manager
 - Priority: High
-- Description: The system identifies which mandatory readiness areas (e.g. monitoring, DR, access, integrations, SLA) have no complete evidence and lists them as *missing critical information*.
+- Description: The system identifies which mandatory readiness areas (e.g. monitoring, DR, access, integrations, SLA) have no complete evidence and lists them as *missing critical information*. Missing critical information may be addressed by raising an **RFC** to Contributors (see REQ-011).
 - Linked objective: OBJ-01
 - Linked CSF: CSF-01
 - Acceptance Criteria:
   - AC-1: For each mandatory area without complete evidence, the area is listed as missing critical information.
   - AC-2: When all mandatory areas have complete evidence, the missing-information list is empty.
+  - AC-3 *(CR-01)*: From a missing critical information item, a Transition Lead can raise an RFC that references that item.
 - Validation method: Test / Demo
 
 ### REQ-004 — Detect stale evidence and block submission *(baseline)*
@@ -113,16 +114,17 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
 - Validation method: Measurement
 - Rewrites: R1 ("The system must be fast").
 
-### REQ-008 — Role-based authorization for submission
+### REQ-008 — Role-based authorization for submission and RFC  *(updated by CR-01)*
 - Type: Non-functional (Security)
 - Stakeholder: Security Officer
 - Priority: High
-- Description: The system enforces role-based authorization so that only users with the `Transition Lead` role can submit a final assessment. Unauthorized submission attempts are denied and recorded.
+- Description: The system enforces role-based authorization so that only users with the `Transition Lead` role can submit a final assessment **or raise/close an RFC** (REQ-011). Unauthorized attempts are denied and recorded.
 - Linked objective: OBJ-03
 - Linked CSF: CSF-03
 - Acceptance Criteria:
   - AC-1: A submission request from a role other than `Transition Lead` is denied.
   - AC-2: A denied attempt does not change the assessment status.
+  - AC-3 *(CR-01)*: A request to raise an RFC from a role other than `Transition Lead` is denied and no RFC is created.
 - Validation method: Test
 - Rewrites: R3 ("The system should be secure"), refines R8 ("Use Microsoft authentication").
 
@@ -151,6 +153,30 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
   - AC-2: Submission is blocked while a critical evidence item lacks a mandatory field.
 - Validation method: Test / Review
 
+### REQ-011 — Raise an RFC (Request for Comment)  *(added by CR-01)*
+- Type: Functional
+- Stakeholder: Transition Lead, Contributor
+- Priority: High
+- Description: A Transition Lead can raise an **RFC** to request further information from Contributors about an intake. An RFC is not a chat: it is a structured, traceable document (title, content/request, author, status), modelled on IETF-style technical RFCs, so that transition knowledge is captured and can feed future AMS FAQs/documentation. An RFC may reference a missing-critical-information item (REQ-003).
+- Linked objective: OBJ-02
+- Linked CSF: CSF-02
+- Acceptance Criteria:
+  - AC-1: A Transition Lead can create an RFC with a title and a request/content, linked to an intake/assessment; it is persisted with status `open`.
+  - AC-2: Only a Transition Lead can raise an RFC (see REQ-008); other roles are denied.
+- Validation method: Test / Demo
+
+### REQ-012 — Respond to an RFC and capture knowledge  *(added by CR-01)*
+- Type: Functional
+- Stakeholder: Contributor, Transition Lead
+- Priority: Medium
+- Description: A Contributor can add a response to an open RFC. A response can be marked as reusable knowledge so that the RFC content can later be promoted to transition documentation or a future AMS FAQ. When an RFC has at least one response, the Transition Lead can mark it `answered`.
+- Linked objective: OBJ-02
+- Linked CSF: CSF-02
+- Acceptance Criteria:
+  - AC-1: A Contributor can add a response to an RFC with status `open`; the response is persisted and linked to the RFC.
+  - AC-2: An RFC with at least one response can be moved to status `answered` by the Transition Lead.
+- Validation method: Test / Demo
+
 ### Requirement summary table
 
 | ID | Title | Type | Priority | OBJ | CSF |
@@ -165,6 +191,8 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
 | REQ-008 | Role-based authorization for submission | NFR (Security) | High | OBJ-03 | CSF-03 |
 | REQ-009 | Guided evidence entry | NFR (Usability) | Low | OBJ-01 | CSF-01 |
 | REQ-010 | Mandatory evidence fields | Constraint / Business rule | High | OBJ-02 | CSF-02 |
+| REQ-011 | Raise an RFC *(CR-01)* | Functional | High | OBJ-02 | CSF-02 |
+| REQ-012 | Respond to an RFC / capture knowledge *(CR-01)* | Functional | Medium | OBJ-02 | CSF-02 |
 
 ## D) Rewrite of initial poor requirements
 
