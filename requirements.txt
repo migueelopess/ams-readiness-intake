@@ -1,0 +1,9 @@
+# AMS Readiness Intake — dependencies
+# Application UI (evidence validation slice)
+streamlit>=1.30.0
+
+# Automated database-backed tests (Deliverable 12)
+pytest>=8.0
+
+# Note: database.py, readiness_rules.py and main.py use only the Python standard library
+# (sqlite3, datetime), so the CLI flow and the tests run without Streamlit.
