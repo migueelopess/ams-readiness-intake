@@ -16,9 +16,9 @@ baseline commit `D7 Add traceability matrix baseline`.
 The RFC tool is a **new, additive** feature. It does not contradict the baseline (evidence
 freshness and role rules are unchanged). Modelled on **IETF-style RFCs**, it must produce
 *structured, traceable documentation* (title, content, author, status, responses) — not a chat —
-so that transition knowledge is captured and can feed future AMS FAQs. Following the decision in
-`docs/08_decision_log.md` (DEC-006), the RFC is implemented at the **data + logic + automated-test**
-level; the app UI keeps the evidence-validation slice (Option A). Role control reuses REQ-008
+so that transition knowledge is captured and can feed future AMS FAQs. The RFC is implemented at
+the **data + logic + automated-test** level and is also **surfaced in the app UI** as a dedicated
+RFC tab (decisions DEC-006 and DEC-009 in `docs/08_decision_log.md`). Role control reuses REQ-008
 ("only the Transition Lead can raise an RFC").
 
 ## Impact analysis
@@ -35,6 +35,7 @@ level; the app UI keeps the evidence-validation slice (Option A). Role control r
 | Data Architecture | Add `RFC` and `RFCResponse` entities, linked to Assessment and to the acting role. | Yes (defined in `docs/10`) |
 | Test Database / Test Data | Add RFC and RFCResponse seed records (valid + invalid/role cases). | Yes (in `docs/12` / seed) |
 | Automated Tests | Add AT-005 (only Transition Lead can raise an RFC; RFC + response persist and link). | Yes (implemented in `docs/12`) |
+| Application (UI) | Add an RFC tab to `app/app.py` (raise / respond / mark answered), showing the role rule live. | Yes (DEC-009) |
 
 ## Summary of updates applied
 - **Requirements updated:** REQ-003, REQ-008 (2 updated) + REQ-011, REQ-012 (2 added).

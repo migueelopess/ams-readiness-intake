@@ -43,8 +43,17 @@ RFC (CR-01):
 1. `evidence/ui_add_evidence.png` — the evidence form with the three mandatory fields.
 2. `evidence/ui_missing_info.png` — assessment "missing DR" showing missing critical information.
 3. `evidence/ui_stale.png` — assessment "stale evidence" showing the stale flag and readiness score.
+4. `evidence/ui_rfc.png` — the RFC tab (CR-01): a Contributor being denied, or a Transition Lead
+   raising an RFC and a Contributor responding.
 ```
 ![Add evidence](ui_add_evidence.png)
 ![Missing information](ui_missing_info.png)
 ![Stale evidence](ui_stale.png)
+![RFC tab](ui_rfc.png)
 ```
+
+### Suggested capture for the RFC tab
+- In the RFC tab, set **Acting as** to a Contributor and try to raise an RFC → the app denies it
+  (REQ-008). Capture that.
+- Then set **Acting as** to `alice (Transition Lead)`, raise an RFC, switch to a Contributor and
+  add a response. Capture the RFC with its response.

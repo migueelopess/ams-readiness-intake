@@ -8,9 +8,10 @@
 - **Option A — Evidence validation slice.**
 - Why this slice was selected: it is the smallest self-contained flow that exercises the core
   business rules (mandatory evidence fields and the 90-day freshness rule) and maps directly to
-  requirements REQ-002, REQ-004, REQ-010, plus the readiness output REQ-003/REQ-006. The role rule
-  (REQ-008) and the RFC tool (CR-01) are implemented in the logic/data layer and covered by the
-  automated tests, keeping the UI minimal (decision DEC-006).
+  requirements REQ-002, REQ-004, REQ-010, plus the readiness output REQ-003/REQ-006.
+- The app has **two tabs**: *Evidence validation* (the main slice) and *RFC* (the change request
+  CR-01). The RFC tab lets a Transition Lead raise an RFC and a Contributor respond, showing the
+  role rule live (decision **DEC-009**, which extended the earlier data/logic-only scope of DEC-006).
 
 ## Data architecture used
 - Persistence option: **SQLite**.
@@ -25,15 +26,22 @@
 | REQ-004 | Evidence older than 90 days (vs the reference date) is flagged as stale. |
 | REQ-003 | The app lists mandatory areas without complete, current evidence as missing critical information. |
 | REQ-006 | The app shows a readiness status and a readiness score. |
-| REQ-005 / REQ-008 | Submission and RFC creation are restricted to the Transition Lead (logic layer / `main.py`, tests). |
-| REQ-011 / REQ-012 | RFC can be raised by a Transition Lead and answered by a Contributor (logic layer, tests). |
+| REQ-005 / REQ-008 | Submission is restricted to the Transition Lead (logic layer / `main.py`, tests). |
+| REQ-011 / REQ-012 | RFC tab: a Transition Lead raises an RFC; a Contributor responds and can mark it as reusable knowledge; only a Transition Lead can raise/close it. |
 
 ## App flow
+**Evidence validation tab**
 1. Select an assessment (seeded: complete / missing DR / stale evidence).
 2. Add an evidence item (area, source, owner, freshness date, criticality).
 3. The app validates the mandatory fields and flags the item as current or stale.
 4. The app shows the evidence list and the readiness result: status, missing critical information,
    stale critical evidence and readiness score.
+
+**RFC tab (CR-01)**
+5. Choose the acting user (to demonstrate the role rule).
+6. Raise an RFC (title + content). If the acting user is not a Transition Lead, the app denies it (REQ-008).
+7. A Contributor adds a response, optionally flagged as reusable knowledge (FAQ) (REQ-012).
+8. The Transition Lead marks the RFC as answered.
 
 ## Validation / business rules implemented
 | Rule | Related REQ | Implemented where |
@@ -43,7 +51,7 @@
 | Missing critical information | REQ-003 | `readiness_rules.missing_critical_areas` |
 | Readiness status and score | REQ-006 | `readiness_rules.readiness_result` / `readiness_score` |
 | Only Transition Lead submits | REQ-005, REQ-008 | `readiness_rules.can_submit` / `submit_assessment` |
-| Only Transition Lead raises an RFC | REQ-008, REQ-011 | `readiness_rules.raise_rfc` |
+| Only Transition Lead raises an RFC | REQ-008, REQ-011 | `readiness_rules.raise_rfc` (shown live in the RFC tab of `app.py`) |
 
 ## Prompt log
 ### Prompt 1
