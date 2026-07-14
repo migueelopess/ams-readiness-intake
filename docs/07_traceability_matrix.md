@@ -17,9 +17,9 @@ This deliverable links the artefacts end to end:
 | OBJ-01 | CSF-01 | REQ-001 Create assessment | UC-01 | US-003 | REQ-001 AC-1, AC-2 | TC-002 | Assessment | AT-001 |
 | OBJ-02 | CSF-02 | REQ-002 Add evidence metadata | UC-02 | US-001 | REQ-002 AC-1, AC-2 | TC-001, TC-003 | Evidence | AT-001, AT-002 |
 | OBJ-01 | CSF-01 | REQ-003 Identify missing critical info | UC-04 | US-002, US-003b | REQ-003 AC-1, AC-2 | TC-004 / Scenario: Missing evidence | Assessment, Evidence | AT-002 |
-| OBJ-02 | CSF-02 | REQ-004 Detect stale evidence (baseline: block) | UC-03 | US-004 | REQ-004 AC-1, AC-2, AC-3 | TC-005, TC-006 | Evidence | AT-003 |
+| OBJ-02 | CSF-02 | REQ-004 Detect and flag stale evidence | UC-03 | US-004 | REQ-004 AC-1, AC-2 | TC-005, TC-006 | Evidence | AT-003 |
 | OBJ-03 | CSF-03 | REQ-005 Submit final assessment | UC-05 | US-003, US-003b | REQ-005 AC-1, AC-2, AC-3 | TC-002, TC-004, TC-008 / Scenario: Happy path | Assessment, UserRole | AT-001, AT-004 |
-| OBJ-01 | CSF-01 | REQ-006 Readiness result and score | UC-06 | US-005 | REQ-006 AC-1, AC-2 | TC-002 | Assessment | AT-001 |
+| OBJ-01 | CSF-01 | REQ-006 Provide readiness status and score | UC-06 | US-005 | REQ-006 AC-1, AC-2 | TC-002 | Assessment | AT-001 |
 | OBJ-01 | CSF-01 | REQ-007 Validation performance | UC-06 | US-005 | REQ-007 AC-1 | TC-007 | Assessment, Evidence | (performance — measured in TC-007) |
 | OBJ-03 | CSF-03 | REQ-008 Role-based authorization | UC-05 | US-003a | REQ-008 AC-1, AC-2 | TC-008 / Scenario: Unauthorized user | UserRole | AT-004 |
 | OBJ-01 | CSF-01 | REQ-009 Guided evidence entry | UC-02 | US-001 | REQ-009 AC-1, AC-2 | TC-003 | Evidence | AT-002 |

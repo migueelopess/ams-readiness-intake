@@ -62,19 +62,16 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
   - AC-3 *(CR-01)*: From a missing critical information item, a Transition Lead can raise an RFC that references that item.
 - Validation method: Test / Demo
 
-### REQ-004 — Detect stale evidence and block submission *(baseline)*
+### REQ-004 — Detect and flag stale evidence  *(revised in D13 for atomicity)*
 - Type: Functional
 - Stakeholder: Security Officer, Transition Lead
 - Priority: High
-- Description: Evidence whose `freshness_date` is more than **90 days** before the assessment date is considered **stale**. In the baseline, stale critical evidence is treated as invalid and **prevents final submission**.
-  > Note: Q-007 (D1) leaves *block vs flag* open. The baseline assumes **block**; this is a
-  > candidate for the change request (`docs/09_change_request.md`).
+- Description: Evidence whose `freshness_date` is more than **90 days** before the reference date is **flagged as stale**. This requirement covers *detection/flagging* only; the consequence for submission (blocking) is specified in REQ-005, so each requirement stays atomic. (Q-007 left *block vs flag* open; it is resolved as "block at submission" in REQ-005.)
 - Linked objective: OBJ-02
 - Linked CSF: CSF-02
 - Acceptance Criteria:
-  - AC-1: Evidence with `freshness_date` older than 90 days is marked `stale = true`.
+  - AC-1: Evidence with `freshness_date` older than 90 days is flagged `stale = true`.
   - AC-2: Evidence exactly 90 days old is **not** stale; 91 days old **is** stale (boundary).
-  - AC-3: An assessment with stale critical evidence cannot be submitted.
 - Validation method: Test
 
 ### REQ-005 — Submit final assessment (role-controlled)
@@ -90,16 +87,16 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
   - AC-3: Submission is blocked while critical information is missing, regardless of role.
 - Validation method: Test / Demo
 
-### REQ-006 — Display readiness result and risk/readiness score
+### REQ-006 — Provide readiness status and readiness score  *(revised in D13)*
 - Type: Functional
 - Stakeholder: Transition Lead, AMS Manager
 - Priority: Medium
-- Description: The system shows a readiness result: overall status, the list of missing critical information, and a simple readiness/risk score computed from complete vs missing/stale critical items.
+- Description: The system computes and makes available the overall **readiness status**, the list of missing critical information, and a deterministic **readiness score** derived from the proportion of critical areas covered by complete, non-stale evidence. (Terminology standardised to "readiness score"; wording is presentation-neutral — it does not prescribe a specific screen or widget.)
 - Linked objective: OBJ-01
 - Linked CSF: CSF-01
 - Acceptance Criteria:
-  - AC-1: The result shows a status (e.g. `ready` / `not ready`) and the list of missing critical information.
-  - AC-2: The readiness score is a value derived from the ratio of complete critical items to total critical items (deterministic for the same input).
+  - AC-1: The readiness status is one of `ready` / `not ready`, available together with the list of missing critical information.
+  - AC-2: The readiness score is deterministic for the same input (same evidence and reference date).
 - Validation method: Test / Demo
 
 ### REQ-007 — Readiness validation performance
@@ -128,16 +125,16 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
 - Validation method: Test
 - Rewrites: R3 ("The system should be secure"), refines R8 ("Use Microsoft authentication").
 
-### REQ-009 — Guided evidence entry (usability)
+### REQ-009 — Guided evidence entry (usability)  *(revised in D13 for testability)*
 - Type: Non-functional (Usability)
 - Stakeholder: Contributor
 - Priority: Low
-- Description: A user can complete the evidence-entry flow using only the three mandatory fields, with inline validation messages, without external documentation.
+- Description: A user can add an evidence item by providing the mandatory fields (`source`, `owner`, `freshness_date`), with inline validation that identifies any missing mandatory field.
 - Linked objective: OBJ-01
 - Linked CSF: CSF-01
 - Acceptance Criteria:
-  - AC-1: The evidence form requires exactly three mandatory fields (`source`, `owner`, `freshness_date`).
-  - AC-2: When a mandatory field is empty, an inline message identifies the missing field.
+  - AC-1: When a mandatory field is empty on save, a message identifies which field is missing.
+  - AC-2: A valid evidence item is added in a single form submission (no additional steps).
 - Validation method: Demo / Review
 - Rewrites: R10 ("It should be user-friendly").
 
@@ -184,9 +181,9 @@ Summary: **6 functional (REQ-001…006), 3 non-functional (REQ-007…009), 1 con
 | REQ-001 | Create readiness assessment | Functional | High | OBJ-01 | CSF-01 |
 | REQ-002 | Add evidence metadata | Functional | High | OBJ-02 | CSF-02 |
 | REQ-003 | Identify missing critical information | Functional | High | OBJ-01 | CSF-01 |
-| REQ-004 | Detect stale evidence and block submission | Functional | High | OBJ-02 | CSF-02 |
+| REQ-004 | Detect and flag stale evidence | Functional | High | OBJ-02 | CSF-02 |
 | REQ-005 | Submit final assessment (role-controlled) | Functional | High | OBJ-03 | CSF-03 |
-| REQ-006 | Display readiness result and score | Functional | Medium | OBJ-01 | CSF-01 |
+| REQ-006 | Provide readiness status and score | Functional | Medium | OBJ-01 | CSF-01 |
 | REQ-007 | Readiness validation performance | NFR (Performance) | Medium | OBJ-01 | CSF-01 |
 | REQ-008 | Role-based authorization for submission | NFR (Security) | High | OBJ-03 | CSF-03 |
 | REQ-009 | Guided evidence entry | NFR (Usability) | Low | OBJ-01 | CSF-01 |
